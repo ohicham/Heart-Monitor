@@ -1,4 +1,4 @@
-package heartmonitor.woka.cic.ibm.com.heartmonitor.device;
+package com.ibm.cic.woka.heartmonitor.device;
 
 /**
  * Created by Mohamed Wagdy on 09-06-2015.

@@ -1,16 +1,12 @@
-package heartmonitor.woka.cic.ibm.com.heartmonitor;
+package com.ibm.cic.woka.heartmonitor;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import heartmonitor.woka.cic.ibm.com.heartmonitor.application.ApplicationMonitor;
-import heartmonitor.woka.cic.ibm.com.heartmonitor.device.DeviceIndicators;
-
+import com.ibm.cic.woka.heartmonitor.application.ApplicationMonitor;
+import com.ibm.cic.woka.heartmonitor.device.DeviceIndicators;
 
 public class MonitorActivity extends Activity {
 
@@ -18,6 +14,7 @@ public class MonitorActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.monitor);
+        ApplicationMonitor.initialize(this);
     }
 
     public void onToggleMonitoringClick(View view) {
@@ -30,6 +27,18 @@ public class MonitorActivity extends Activity {
             ApplicationMonitor.activateSimulator(this);
             activationIV.setImageResource(R.drawable.on);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ApplicationMonitor.resumeListening();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ApplicationMonitor.holdListening();
     }
 
 }

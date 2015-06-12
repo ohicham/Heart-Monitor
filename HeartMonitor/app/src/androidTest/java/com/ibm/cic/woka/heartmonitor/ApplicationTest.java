@@ -1,4 +1,4 @@
-package heartmonitor.woka.cic.ibm.com.heartmonitor;
+package com.ibm.cic.woka.heartmonitor;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
