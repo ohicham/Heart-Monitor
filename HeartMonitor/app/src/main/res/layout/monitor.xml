@@ -3,6 +3,16 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MonitorActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MonitorActivity" android:background="@color/grey">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/activateImgBtn"
+        android:src="@drawable/off"
+        android:layout_marginBottom="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onToggleMonitoringClick"/>
 
 </RelativeLayout>

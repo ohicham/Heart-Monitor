@@ -17,6 +17,7 @@ public class HeartRateActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.heart_rate);
+        updateHeartRateTextView();
     }
 
     public void onDecreaseHRClick(View view) {
