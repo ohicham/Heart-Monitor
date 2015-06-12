@@ -7,12 +7,9 @@ public class DeviceIndicators {
 
     private static DeviceIndicators instance;
 
-    private int heartRate;
-
     private boolean activated;
 
     private DeviceIndicators() {
-        heartRate = 80;
         activated = false;
     }
 
@@ -22,15 +19,6 @@ public class DeviceIndicators {
         }
 
         return instance;
-    }
-
-
-    public int getHeartRate() {
-        return heartRate;
-    }
-
-    public void setHeartRate(int heartRate) {
-        this.heartRate = heartRate;
     }
 
     public boolean isActivated() {
