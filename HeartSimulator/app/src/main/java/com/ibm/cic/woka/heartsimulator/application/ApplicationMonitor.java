@@ -2,6 +2,8 @@ package com.ibm.cic.woka.heartsimulator.application;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -22,6 +25,22 @@ import java.util.TimerTask;
  * Created by Mohamed Wagdy on 09-06-2015.
  */
 public class ApplicationMonitor {
+
+    public static void initializeDevice(Context context) {
+        ApplicationControl.getInstance().initialize(context);
+    }
+
+    public static String getMacAddress(final Context context) {
+        WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = manager.getConnectionInfo();
+        return info.getMacAddress();
+    }
+
+    public static String getMacAddressAsKey(final Context context) {
+        String macAddress = getMacAddress(context);
+        macAddress = macAddress.replace(":" , "");
+        return macAddress;
+    }
 
     public static void increaseHeartRate() {
         int heartRate = DeviceIndicators.getInstance().getHeartRate();
@@ -42,6 +61,12 @@ public class ApplicationMonitor {
 
     public static void activateSimulator(final Context context) {
         try {
+
+            if(!ApplicationControl.getInstance().isDeviceRegistered(context)) {
+                Toast.makeText(context, "Registering your device", Toast.LENGTH_SHORT).show();
+                ApplicationControl.getInstance().registerDevice(context);
+                return;
+            }
 
             MqttConnectOptions options = new MqttConnectOptions();
             options.setCleanSession(true);

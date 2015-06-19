@@ -16,6 +16,7 @@ public class HeartRateActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApplicationMonitor.initializeDevice(this);
         setContentView(R.layout.heart_rate);
         updateHeartRateTextView();
     }
@@ -31,15 +32,25 @@ public class HeartRateActivity extends Activity {
     }
 
     public void onToggleMonitoringClick(View view) {
+        if(DeviceIndicators.getInstance().isActivated()) {
+            ApplicationMonitor.deactivateSimulator(this);
+        } else {
+            ApplicationMonitor.activateSimulator(this);
+        }
+
+        updatePowerButtonImage();
+    }
+
+    private void updatePowerButtonImage() {
+
         ImageView activationIV = (ImageView) findViewById(R.id.activateImgBtn);
 
         if(DeviceIndicators.getInstance().isActivated()) {
-            ApplicationMonitor.deactivateSimulator(this);
-            activationIV.setImageResource(R.drawable.off);
-        } else {
-            ApplicationMonitor.activateSimulator(this);
             activationIV.setImageResource(R.drawable.on);
+        } else {
+            activationIV.setImageResource(R.drawable.off);
         }
+
     }
 
     private void updateHeartRateTextView() {
